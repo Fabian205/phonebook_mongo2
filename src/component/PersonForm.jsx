@@ -1,4 +1,6 @@
-import React from "react";
+import PropTypes from 'prop-types'
+
+import React from 'react'
 
 const PersonForm = ({
   onSubmit,
@@ -6,12 +8,12 @@ const PersonForm = ({
   setNewPerson,
   newNumber,
   setNewNumber,
-  inputRef,
+  inputRef
 }) => {
   return (
     <form onSubmit={onSubmit}>
       <div>
-        name:{" "}
+        name:{' '}
         <input
           value={newPerson}
           onChange={(e) => setNewPerson(e.target.value)}
@@ -19,7 +21,7 @@ const PersonForm = ({
         />
       </div>
       <div>
-        number:{" "}
+        number:{' '}
         <input
           value={newNumber}
           onChange={(e) => setNewNumber(e.target.value)}
@@ -29,7 +31,16 @@ const PersonForm = ({
         <button type="submit">add</button>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default PersonForm;
+PersonForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  newPerson: PropTypes.string.isRequired,
+  setNewPerson: PropTypes.func.isRequired,
+  newNumber: PropTypes.string.isRequired,
+  setNewNumber: PropTypes.func.isRequired,
+  inputRef: PropTypes.object.isRequired
+}
+
+export default PersonForm

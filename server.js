@@ -77,7 +77,7 @@ app.post('/api/persons', async (request, response, next) => {
       })
       .catch((error) => next(error))
   } catch (error) {
-    console.error('Error saving note:', error)
+    console.error('Error saving person:', error)
     response.status(500).json({ message: 'Internal Server Error' })
   }
 })
@@ -146,40 +146,41 @@ app.delete('/api/persons/:id', (req, res, next) => {
     .catch(error => next(error))
 })
 
-/* app.put("/api/persons/:id", async (req, res) => {
-  const idToUpdate = req.params.id;
-  const { name, number } = req.body;
+/* app.put('/api/persons/:id', async (req, res) => {
+  const idToUpdate = req.params.id
+  const { name, number } = req.body
 
   try {
     const updatedPerson = await Person.findByIdAndUpdate(idToUpdate, {
       name,
-      number,
-    });
+      number
+    })
 
     if (updatedPerson) {
-      res.json({ message: "Person updated successfully", updatedPerson });
+      res.json({ message: 'Person updated successfully', updatedPerson })
     } else {
-      res.status(404).json({ message: "Person not found" });
+      res.status(404).json({ message: 'Person not found' })
     }
   } catch (error) {
-    console.error("Error updating person:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error('Error updating person:', error)
+    res.status(500).json({ message: 'Internal Server Error' })
   }
-}); */
+}) */
 
 app.put('/api/persons/:id', (req, res, next) => {
   const { name, number } = req.body
-
-  Person.findByIdAndUpdate(
-    req.params.id,
-
-    { name, number },
-    { new: true, runValidators: true, context: 'query' }
-  )
-    .then(updatedPerson => {
-      res.json(updatedPerson)
-    })
-    .catch(error => next(error))
+  try {
+    Person.findByIdAndUpdate(
+      req.params.id,
+      { name, number },
+      { new: true, runValidators: true, context: 'query' }
+    )
+      .then(updatedPerson => {
+        res.json(updatedPerson)
+      }).catch(error => next(error))
+  } catch (error) {
+    console.log('Error updating person:', error)
+  }
 })
 
 app.listen(PORT, () => {
