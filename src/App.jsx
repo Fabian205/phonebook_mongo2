@@ -106,6 +106,8 @@ function App () {
           hook()
         })
         .catch((error) => {
+          setNewNumber('')
+          inputRef.current.focus()
           setConfirmation(error.response.data.error)
           setTimeout(() => {
             setConfirmation(null)
@@ -209,3 +211,5 @@ function App () {
 }
 
 export default App
+
+// link github with phonebook_mongo2 Fabian205
